@@ -16,7 +16,7 @@ def add_text_to_pdf(input_pdf_path, output_pdf_path, text):
     page_width = page.mediabox.width
     page_height = page.mediabox.height
 
-    x = page_width - text_width - Decimal(7)  # Resta el ancho del texto y un margen de 10 puntos
+    x = page_width - text_width - Decimal(10)  # Resta el ancho del texto y un margen de 10 puntos
     y = page_height - Decimal(10)  # Resta un margen de 10 puntos
 
     can.drawString(float(x), float(y), text)
