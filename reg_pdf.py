@@ -46,4 +46,4 @@ def process_files(directory):
             add_text_to_pdf(input_pdf_path, output_pdf_path, text)
 
 # Reemplaza 'my_directory' con la ruta de tu directorio
-process_files("C:\\AUTOM\\PRUEBA")
+process_files("C:\\AUTOM\\SPU")
