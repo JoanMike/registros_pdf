@@ -10,6 +10,7 @@ def add_text_to_pdf(input_pdf_path, output_pdf_path, text):
     packet = io.BytesIO()
     can = canvas.Canvas(packet)
     text_width = Decimal(stringWidth(text, 'Helvetica', 12))
+    text_height = 12  # Altura del texto
 
     existing_pdf = PdfReader(open(input_pdf_path, "rb"))
     page = existing_pdf.pages[0]  # Obtiene la primera página
@@ -19,6 +20,13 @@ def add_text_to_pdf(input_pdf_path, output_pdf_path, text):
     x = page_width - text_width - Decimal(20)  # Resta el ancho del texto y un margen de 20 puntos
     y = page_height - Decimal(10)  # Resta un margen de 10 puntos
 
+    # Dibuja un rectángulo blanco detrás del texto
+    can.setFillColorRGB(1, 1, 1)  # Color blanco
+    can.setStrokeColorRGB(1, 1, 1)  # Color blanco para el borde
+    can.rect(float(x), float(y) - text_height + 10, float(text_width), text_height, fill=1, stroke=1)  # Ajusta la posición y del rectángulo
+
+    # Dibuja el texto
+    can.setFillColorRGB(0, 0, 0)  # Color negro
     can.drawString(float(x), float(y), text)
     can.save()
 
@@ -49,3 +57,4 @@ if __name__ == "__main__":
     directory = input("Ingrese la ruta del directorio donde están ubicados los archivos PDF: ")
     directory = directory.replace("\\", "\\\\")
     process_files(directory)
+    print("Proceso terminado.")
