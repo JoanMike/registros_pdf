@@ -1,7 +1,7 @@
 import os
 import io
 import tkinter as tk
-from tkinter import filedialog
+from tkinter import filedialog, messagebox
 from PyPDF2 import PdfReader, PdfWriter
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
@@ -62,18 +62,29 @@ def select_directory():
 
 def start_processing():
     directory = directory_entry.get()
-    process_files(directory)
-    print("Proceso terminado.")
+    if not directory:
+        messagebox.showwarning("Advertencia", "Debe elegir una ruta que contenga comprobantes en PDF para poder realizar el proceso de grabación de registros.")
+    else:
+        process_files(directory)
+        print("Proceso terminado.")
 
 root = tk.Tk()
+root.geometry("450x150")  # Ajusta el tamaño de la ventana principal
 
-directory_entry = tk.Entry(root)
-directory_entry.pack()
+root.title("Graba Registros en PDF | RC SONY | Jose Miguel")  # Cambiar el nombre de la ventana
+
+# Cambiar el icono de la ventana
+icon_path = r"C:\AUTOM\REG_PDF\assets\PDF_30915.ico"  # Ruta a tu archivo .ico
+if os.path.exists(icon_path):
+    root.iconbitmap(icon_path)
+
+directory_entry = tk.Entry(root, width=50)  # Aumenta el ancho de la caja de texto
+directory_entry.pack(padx=10, pady=10)  # Añade algo de padding para mejorar la apariencia
 
 select_button = tk.Button(root, text="Seleccionar carpeta", command=select_directory)
-select_button.pack()
+select_button.pack(pady=5)  # Añade algo de padding entre los botones
 
 process_button = tk.Button(root, text="Procesar", command=start_processing)
-process_button.pack()
+process_button.pack(pady=5)  # Añade algo de padding entre los botones
 
 root.mainloop()
