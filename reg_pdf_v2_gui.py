@@ -1,12 +1,24 @@
 import os
 import io
 import tkinter as tk
+import datetime
 from tkinter import filedialog, messagebox
 from PyPDF2 import PdfReader, PdfWriter
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfbase.pdfmetrics import stringWidth
 from decimal import Decimal
+
+# Definir la fecha límite (año, mes, día)
+fecha_limite = datetime.datetime(2024, 6, 30)
+
+# Obtener la fecha actual
+fecha_actual = datetime.datetime.now()
+
+# Comprobar si la fecha actual es mayor o igual a la fecha límite
+if fecha_actual >= fecha_limite:
+    messagebox.showwarning("Advertencia", "El período de uso de esta aplicación ha expirado.")
+    exit()  # Salir del programa
 
 def add_text_to_pdf(input_pdf_path, output_pdf_path, text):
     packet = io.BytesIO()
@@ -74,7 +86,7 @@ root.geometry("450x150")  # Ajusta el tamaño de la ventana principal
 root.title("Graba Registros en PDF | RC SONY | Jose Miguel")  # Cambiar el nombre de la ventana
 
 # Cambiar el icono de la ventana
-icon_path = r"C:\AUTOM\REG_PDF\assets\PDF_30915.ico"  # Ruta a tu archivo .ico
+icon_path = r'C:\AUTOM\Python\REG_PDF\assets\PDF_30915.ico'  # Ruta a tu archivo .ico
 if os.path.exists(icon_path):
     root.iconbitmap(icon_path)
 
